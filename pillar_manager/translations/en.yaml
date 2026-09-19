@@ -1,0 +1,10 @@
+configuration:
+  enable_pillar_cards:
+    name: "Enable Pillar Cards"
+    description: "Automatically download, install, and manage the Pillar Cards dashboard package."
+  auto_update:
+    name: "Automatic Updates"
+    description: "Automatically install future card upgrades in the background when discovered."
+  check_interval_hours:
+    name: "Check Interval (hours)"
+    description: "How often to check for public card updates (between 1 and 24 hours)."
