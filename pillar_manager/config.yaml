@@ -1,5 +1,5 @@
 name: "Pillar Manager"
-version: "1.0.3"
+version: "1.1.0"
 slug: "pillar_manager"
 description: "Manage and install Pillar Cards and dashboard packages for Home Assistant without HACS."
 image: "ghcr.io/pillar-integrated/pillar-manager"
@@ -21,9 +21,11 @@ map:
   - media:rw
 options:
   enable_pillar_cards: false
+  enable_bunker_cards: false
   auto_update: false
   check_interval_hours: 6
 schema:
   enable_pillar_cards: bool
+  enable_bunker_cards: bool
   auto_update: bool
   check_interval_hours: int(1,24)

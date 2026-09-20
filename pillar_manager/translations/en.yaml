@@ -2,6 +2,9 @@ configuration:
   enable_pillar_cards:
     name: "Enable Pillar Cards"
     description: "Automatically download, install, and manage the Pillar Cards dashboard package."
+  enable_bunker_cards:
+    name: "Enable Bunker Cards"
+    description: "Automatically download, install, and manage the Bunker Cards dashboard package."
   auto_update:
     name: "Automatic Updates"
     description: "Automatically install future card upgrades in the background when discovered."

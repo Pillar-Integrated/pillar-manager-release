@@ -5,6 +5,18 @@ All notable changes to the Pillar Manager add-on are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.0
+
+### Added
+- Independent management of Bunker Cards (`bunker-cards`) as a second dashboard package.
+- Configuration option `enable_bunker_cards` (boolean, default `false`) in Add-on Configuration tab and translations.
+- Multi-package architecture with independent versions, provenance, timestamps, rollback backups, and recovery states.
+- Dedicated dashboard resource tracking for `/local/community/bunker/bunker-cards.js?v=<version>`.
+- Automated media directory creation for `/media/pillar/bunker/`.
+- Atomic idempotent migration from single-package state schema to v2 package-scoped schema with safety backup.
+- Package-aware ZIP uploads validating archive package identity before installation.
+- Dual-package Ingress dashboard displaying dedicated cards and management actions for each package.
+
 ## v1.0.3
 
 ### Added
