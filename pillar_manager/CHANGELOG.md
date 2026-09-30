@@ -5,9 +5,12 @@ All notable changes to the Pillar Manager add-on are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v1.1.0
+## v2026.9.1
 
 ### Added
+- Required external Alert Configuration (`alerts.yaml`) support for Bunker Cards releases.
+- Multi-asset download and transactional installation ensuring both `bunker-cards.js` and `alerts.yaml` are verified before completion.
+- Preservation of site-owned `alerts-overrides.yaml` across installs, upgrades, rollbacks, and repairs.
 - Independent management of Bunker Cards (`bunker-cards`) as a second dashboard package.
 - Configuration option `enable_bunker_cards` (boolean, default `false`) in Add-on Configuration tab and translations.
 - Multi-package architecture with independent versions, provenance, timestamps, rollback backups, and recovery states.
