@@ -5,6 +5,51 @@ All notable changes to the Pillar Manager add-on are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2026.9.3.2
+
+### Fixed
+- Fixed browser static asset caching across Home Assistant Ingress: appended deterministic version cache-busting query strings (`?v=2026.9.3.2`) to Manager-owned static asset requests (`app.css`, `app.js`, `pillar-logo.png`).
+- Configured explicit `Cache-Control: no-cache, no-store, must-revalidate` headers for `index.html` and long-term immutable caching for versioned static assets, preventing stale frontend code from executing following add-on updates without requiring manual hard browser refreshes.
+- Fixed theme media-query conflict where unconditional `@media (prefers-color-scheme: dark)` on `:root` partially overrode explicit Home Assistant Light mode when the client browser or OS was set to dark. Restricted media query fallbacks strictly to `:root:not([data-theme])`.
+- Added frontend diagnostic marker `FRONTEND_VERSION` logged to console on initialization and CSS version token `--pillar-manager-css-version`.
+
+## v2026.9.3.1
+
+### Fixed
+- Fixed fatal temporal-dead-zone JavaScript initialization error (`ReferenceError: Cannot access 'TABS' before initialization`) preventing tab navigation, status polling, and alert configuration management from loading.
+- Reorganized frontend startup sequence into a deterministic `initApp()` routine ensuring all state, element references, tab constants, and event handlers are fully initialized before execution.
+- Fixed theme synchronization in Home Assistant Ingress: replaced standalone `@media (prefers-color-scheme)` media queries with active Home Assistant frontend theme detection (`home-assistant` element theme state, `meta[name="color-scheme"]`, and container style detection) falling back to browser `prefers-color-scheme` and dark theme.
+- Added explicit `html[data-theme="light"]` and `html[data-theme="dark"]` CSS token bindings and real-time observer for live Home Assistant theme toggling without page reloads.
+- Restored Bunker Alerts UI loading and interaction via the now accessible Bunker tab.
+
+## v2026.9.3
+
+### Added
+- Tabbed interface layout (`Main | Pillar | Bunker`) organizing general Manager settings, Pillar Cards, and Bunker Cards into dedicated views.
+- URL hash navigation (`#main`, `#pillar`, `#bunker`) preserving active tab across page reloads and browser history back/forward navigation.
+- Automatic system-aware Light and Dark mode theming via `@media (prefers-color-scheme)` with semantic CSS custom properties.
+- Dedicated retry action and user-friendly error display for Bunker Alert Configuration failures.
+
+### Changed
+- Refactored Alerts Manager to authoritatively derive the Bunker Cards installation directory from the package definition (`getPackageInstallDir(getPackage('bunker-cards'))`).
+- Implemented lazy loading of Bunker Alert configuration when opening the Bunker tab, preventing unnecessary polling cycles.
+- Improved error handling in `getAlertsConfig()` to return structured diagnostic errors on malformed YAML.
+
+## v2026.9.2
+
+### Added
+- Web UI for managing site-specific Bunker alert overrides in Pillar Manager.
+- Source-of-truth reader for Pillar-owned `alerts.yaml` with dynamic discovery of configurable alert thresholds, friendly labels, and units.
+- Sparse delta generator for site-owned `alerts-overrides.yaml` storing only customized settings differing from Pillar defaults.
+- Automatic cleanup and removal of redundant overrides when values are returned to Pillar defaults, including pruning of empty parent hierarchies.
+- Automatic deletion of `alerts-overrides.yaml` when all site overrides are removed.
+- Visual status indicators distinguishing `PILLAR DEFAULT` vs `SITE OVERRIDE` with effective threshold values.
+- Individual "Reset to Pillar Default" per setting and confirmed "Reset All to Pillar Defaults" for the site.
+- Obsolete override path detection and warning banner for settings removed in future Bunker releases.
+- Quick filter toggle ("Show Overrides Only") to easily view customized thresholds.
+- Backend REST API endpoints: `GET /api/bunker/alerts`, `POST /api/bunker/alerts/override`, `POST /api/bunker/alerts/reset`, `POST /api/bunker/alerts/reset-all`.
+- Pure-JS zero-dependency YAML parser and serializer (`yaml.js`).
+
 ## v2026.9.1
 
 ### Added
